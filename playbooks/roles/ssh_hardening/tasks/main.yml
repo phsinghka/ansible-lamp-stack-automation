@@ -1,0 +1,16 @@
+---
+# tasks file for ssh_hardening
+
+- name: Disable password authentication in SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+    state: present
+  notify:
+    - restart ssh
+
+- name: Restart SSH
+  service:
+    name: ssh
+    state: restarted

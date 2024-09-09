@@ -1,0 +1,22 @@
+---
+# tasks file for apache
+
+- name: Install Apache
+  apt: 
+    name: apache2
+    state: present
+    update_cache: yes
+
+- name: Ensuring Apache is running
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: Deploy Apache Configuration
+  template:
+    src: apache2.conf.j2
+    dest: /etc/apache2/apache2.conf
+  notify: 
+    - restart_apache
+  

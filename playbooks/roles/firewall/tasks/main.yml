@@ -1,0 +1,19 @@
+---
+# tasks file for firewall
+- name: Install UFW (for Ubuntu)
+  apt:
+    name: ufw
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Configure UFW
+  ufw:
+    rule: allow
+    name: "{{ item }}"
+  loop:
+    - 'OpenSSH'
+    - 'WWW'
+
+- name: Enable UFW
+  command: ufw enable
+  when: ansible_os_family == "Debian"

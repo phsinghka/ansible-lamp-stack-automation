@@ -1,0 +1,17 @@
+---
+# tasks file for php
+
+- name: Install PHP and related packages
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  loop:
+    - php
+    - libapache2-mod-php
+    - php-mysql
+
+- name: restart apache to apply php changes
+  service:
+    name: apache2
+    state: restarted

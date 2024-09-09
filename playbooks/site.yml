@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  roles:
+    - firewall
+    - ssh_hardening
+
+- hosts: web
+  become: true
+  roles:
+    - apache
+    - php
+
+- hosts: db
+  become: true
+  roles:
+    - mysql

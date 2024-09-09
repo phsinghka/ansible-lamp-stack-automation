@@ -1,0 +1,29 @@
+---
+# tasks file for mysql (Installing in Amazon Linux 2023)
+
+- name: Install Mysql
+  yum:
+    name: mariadb105-server
+    state: present
+
+- name: Ensure Mysql is running
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: Create a mysql database
+  mysql_db:
+    name: lamp_db
+    state: present
+    login_user: root
+    login_password: "your_root_password"
+
+- name: Create a Mysql user
+  mysql_user:
+    name: user
+    password: "password"
+    priv: "lamp_db.*:ALL"
+    state: present
+    login_user: root
+    login_password: "your_root_password"
